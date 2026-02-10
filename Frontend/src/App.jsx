@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Createpost from "./pages/Createpost";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
     <div>
-      hello frontend
-    </div>
-  )
-}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/create-post" element={<Createpost/>} />
 
-export default App
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
