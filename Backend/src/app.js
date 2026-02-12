@@ -4,7 +4,12 @@ const uploadFile =require("./service/storage.service")
 const postModel =require("./models/post.model")
 const cors=require("cors")
 const app=express()
-app.use(cors())
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://YOUR-FRONTEND.onrender.com"
+  ]
+}))
 app.use(express.json())
 
 const upload = multer({storage:multer.memoryStorage()})

@@ -6,8 +6,11 @@ const connectDB=require("./src/db/db")
 
 connectDB()
 
+const PORT = process.env.PORT || 3000;
+
 //starts the server
 app.listen(3000,()=>{
     console.log("server is running on port 3000 .....");
     
 })
+
