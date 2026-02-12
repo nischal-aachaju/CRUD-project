@@ -6,12 +6,14 @@ const Createpost = () => {
   const eventHandle = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    axios.post("http://localhost:3000/create-post", formData)
+    axios.post("https://hellobook-sr1l.onrender.com/create-post", formData)
       .then((res) => {
         console.log(res.data.message);
 
       })
   }
+
+  
   return (
     <div className='h-screen w-full flex justify-center items-center gap-3 flex-col '>
       <Link className="bg-green-600 rounded ml-4   px-2 py-1" to="/">Home </Link>

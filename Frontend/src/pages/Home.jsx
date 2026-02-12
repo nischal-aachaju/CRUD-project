@@ -8,7 +8,8 @@ const Home = () => {
 
   useEffect(() => {
     const ApiCall = async () => {
-      const response = await axios.get(`http://localhost:3000/posts`);
+
+      const response = await axios.get(`https://hellobook-sr1l.onrender.com/posts`);
       setPost(response.data.posts);
     };
     ApiCall();
