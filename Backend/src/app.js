@@ -1,45 +1,41 @@
-const express=require("express")
-const multer =require("multer")
-const uploadFile =require("./service/storage.service")
-const postModel =require("./models/post.model")
-const cors=require("cors")
-const app=express()
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://YOUR-FRONTEND.onrender.com"
-  ]
-}))
-app.use(express.json())
+const express = require("express");
+const multer = require("multer");
+const uploadFile = require("./service/storage.service");
+const postModel = require("./models/post.model");
+const cors = require("cors");
+const app = express();
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://YOUR-FRONTEND.onrender.com"],
+  }),
+);
+app.use(express.json());
 
-const upload = multer({storage:multer.memoryStorage()})
+const upload = multer({ storage: multer.memoryStorage() });
 
-app.get("/",(res,req)=>{
-res.send("Server is working")
+app.get("/", (req, res) => {
+  res.send("Server is working");
 })
-app.post("/create-post",upload.single("image") ,async(req,res)=>{
-      
-    console.log( req.body);
-    console.log( req.file);
-    const result =await uploadFile(req.file.buffer)
-    console.log(result);
-    const post= await postModel.create({
-        image:result.url,
-        caption:req.body.caption
-    })
-    res.status(201).json({
-        message:"posted",
-        post:post
-    })
-})
-app.get("/posts",async( req,res)=>{
+app.post("/create-post", upload.single("image"), async (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+  const result = await uploadFile(req.file.buffer);
+  console.log(result);
+  const post = await postModel.create({
+    image: result.url,
+    caption: req.body.caption,
+  });
+  res.status(201).json({
+    message: "posted",
+    post: post,
+  });
+});
+app.get("/posts", async (req, res) => {
+  const posts = await postModel.find();
+  return res.status(200).json({
+    message: "posted data",
+    posts,
+  });
+});
 
-    const posts= await postModel.find()
-    return res.status(200).json({
-        message:"posted data",
-        posts
-
-    })
-})
-
-module.exports=app
+module.exports = app;
