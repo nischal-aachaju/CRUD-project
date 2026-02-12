@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 const Createpost = () => {
+  
   return (
     <div className='h-screen w-full flex justify-center items-center gap-3 flex-col '>
               <Link className="bg-green-600 rounded ml-4   px-2 py-1" to="/">Home </Link>
