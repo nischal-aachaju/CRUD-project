@@ -4,11 +4,8 @@ const uploadFile = require("./service/storage.service");
 const postModel = require("./models/post.model");
 const cors = require("cors");
 const app = express();
-app.use(
-  cors({
-    origin:"http://localhost:5173",
-  }),
-);
+
+app.use(cors())
 app.use(express.json());
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -17,10 +14,9 @@ app.get("/", (req, res) => {
   res.send("Server is working");
 })
 app.post("/create-post", upload.single("image"), async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
+
   const result = await uploadFile(req.file.buffer);
-  console.log(result);
+
   const post = await postModel.create({
     image: result.url,
     caption: req.body.caption,
@@ -32,7 +28,7 @@ app.post("/create-post", upload.single("image"), async (req, res) => {
 });
 app.get("/posts", async (req, res) => {
   const posts = await postModel.find();
-  return res.status(200).json({
+  res.status(200).json({
     message: "posted data",
     posts,
   });
